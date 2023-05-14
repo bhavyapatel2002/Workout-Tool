@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Record = require('../models/recordModel')
+const User = require('../models/userModel')
 
 // helper for validating input when creating records
 const isPositiveInteger = (value) => {
@@ -14,7 +15,7 @@ const isPositiveInteger = (value) => {
 // @route   GET /api/records
 // @access  Private
 const getRecords = asyncHandler(async (req, res) => {
-    const records = await Record.find()
+    const records = await Record.find({ user: req.user.id })
 
     res.status(200).json(records)
 })
@@ -38,10 +39,14 @@ const addRecord = asyncHandler(async (req, res) => {
 
     const record = await Record.create({
         exercise: req.body.exercise,
-        reps: req.body.reps
+        reps: req.body.reps,
+        user: req.user.id
     })
 
-    res.status(200).json(record)
+    res.status(200).json({
+        record: record,
+        author: req.user.name
+    })
 })
 
 // @desc    Update a record
@@ -53,6 +58,20 @@ const updateRecord = asyncHandler(async (req, res) => {
     if (!record) {
         res.status(400)
         throw new Error('Record not found')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    // make sure user exists
+    if (!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // make sure authenticated user matches author of record
+    if (record.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized to update record')
     }
 
     const updatedRecord = await Record.findByIdAndUpdate(req.params.id, req.body, {new: true})
@@ -69,6 +88,20 @@ const deleteRecord = asyncHandler(async (req, res) => {
     if (!record) {
         res.status(400)
         throw new Error('Record not found')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    // make sure user exists
+    if (!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // make sure authenticated user matches author of record
+    if (record.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized to update record')
     }
 
     await record.deleteOne()

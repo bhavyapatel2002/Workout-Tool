@@ -13,8 +13,9 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// use router file
+// use corresponding router files
 app.use('/api/records', require('./routes/recordRoutes'))
+app.use('/api/users', require('./routes/userRoutes'))
 
 // override use of default error handler
 app.use(errorHandler)
