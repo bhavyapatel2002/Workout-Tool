@@ -49,7 +49,7 @@ function Login() {
             password
         }
 
-        dispatchEvent(login(userData))
+        dispatch(login(userData))
     }
 
     if (isLoading) {

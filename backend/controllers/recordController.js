@@ -60,16 +60,14 @@ const updateRecord = asyncHandler(async (req, res) => {
         throw new Error('Record not found')
     }
 
-    const user = await User.findById(req.user.id)
-
     // make sure user exists
-    if (!user) {
+    if (!req.user) {
         res.status(401)
         throw new Error('User not found')
     }
 
     // make sure authenticated user matches author of record
-    if (record.user.toString() !== user.id) {
+    if (record.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('User not authorized to update record')
     }
@@ -90,16 +88,14 @@ const deleteRecord = asyncHandler(async (req, res) => {
         throw new Error('Record not found')
     }
 
-    const user = await User.findById(req.user.id)
-
     // make sure user exists
-    if (!user) {
+    if (!req.user) {
         res.status(401)
         throw new Error('User not found')
     }
 
     // make sure authenticated user matches author of record
-    if (record.user.toString() !== user.id) {
+    if (record.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('User not authorized to update record')
     }
