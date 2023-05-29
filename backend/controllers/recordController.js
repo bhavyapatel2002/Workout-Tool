@@ -28,6 +28,14 @@ const addRecord = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Please enter an exercise')
     }
+    if(!req.body.weight) {
+        res.status(400)
+        throw new Error('Please enter the weight at which the exercise was performed')
+    }
+    if(!isPositiveInteger(req.body.weight)) {
+        res.status(400)
+        throw new Error('Please enter a positive integer for the weight')
+    }
     if(!req.body.reps) {
         res.status(400)
         throw new Error('Please enter the number of repetitions')
@@ -39,14 +47,12 @@ const addRecord = asyncHandler(async (req, res) => {
 
     const record = await Record.create({
         exercise: req.body.exercise,
+        weight: req.body.weight,
         reps: req.body.reps,
         user: req.user.id
     })
 
-    res.status(200).json({
-        record: record,
-        author: req.user.name
-    })
+    res.status(200).json(record)
 })
 
 // @desc    Update a record

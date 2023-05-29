@@ -11,6 +11,10 @@ const recordSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add an exercise name']
         },
+        weight: {
+            type: String,
+            required: [true, 'Please enter a weight']
+        },
         reps: {
             type: Number,
             required: [true, 'Please enter the number of repetitions']

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from '../features/auth/authSlice'
-import recordReducer from '../features/goals/recordSlice'
+import recordReducer from '../features/records/recordSlice'
 
 export const store = configureStore({
   reducer: {
