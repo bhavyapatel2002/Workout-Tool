@@ -15,6 +15,10 @@ function Header() {
         navigate('/')
     }
 
+    const onRecords = () => {
+        navigate('/records')
+    }
+
     return (
         <header className='header'>
             <div className='logo'>
@@ -22,11 +26,18 @@ function Header() {
             </div>
             <ul>
                 {user ? (
+                    <>
+                    <li>
+                        <button className="btn" onClick={onRecords}>
+                            View Records
+                        </button>
+                    </li>
                     <li>
                         <button className="btn" onClick={onLogout}>
                             <FaSignOutAlt /> Logout
                         </button>
                     </li>
+                    </>
                 ) : (<>
                     <li>
                         <Link to='/login'>

@@ -5,21 +5,27 @@ import Header from './components/Header'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Records from './pages/Records'
+import Navbar from './components/Navbar'
+import React from 'react'
 
 function App() {
   return (
     <>
       <Router>
+      <Navbar />
         <div className='container'>
+          
           <Header />
           <Routes>
             <Route path='/' element={<Dashboard />}></Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path='/register' element={<Register />}></Route>
+            <Route path='/records' element={<Records />}></Route>
           </Routes>
         </div>
-        </Router>
-        <ToastContainer />
+      </Router>
+      <ToastContainer />
     </>
   );
 }

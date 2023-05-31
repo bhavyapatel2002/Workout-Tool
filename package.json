@@ -20,16 +20,24 @@
   },
   "homepage": "https://github.com/bhavyapatel2002/Workout-Tool#readme",
   "dependencies": {
+    "@chakra-ui/react": "^2.6.1",
+    "@emotion/react": "^11.11.0",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "framer-motion": "^10.12.16",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.4"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "@types/node": "^20.2.5",
+    "@types/react": "^18.2.7",
+    "@types/react-dom": "^18.2.4",
     "concurrently": "^8.0.1",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "typescript": "^5.0.4"
   }
 }
