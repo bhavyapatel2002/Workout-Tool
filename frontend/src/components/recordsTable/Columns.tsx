@@ -2,6 +2,7 @@ import * as React from "react";
 import { Button, ChakraProvider } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import DeleteRecordButton from "./DeleteRecordButton";
+import AddRecordButton from "./AddRecordButton";
 
 export type Record = {
     _id: string,
@@ -34,7 +35,7 @@ export const columns = [
     }),
     columnHelper.accessor("_id", {
         cell: props => <DeleteRecordButton id={props.getValue()} />,
-        header: () => <DeleteRecordButton id='a' />,
+        header: '',
         meta: {
             isNumeric: true,
         },

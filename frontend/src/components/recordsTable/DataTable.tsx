@@ -32,7 +32,7 @@ export function DataTable<Record extends object>({
     });
 
     return (
-        <Table variant="striped">
+        <Table variant="simple" size="sm">
             <Thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                     <Tr key={headerGroup.id}>

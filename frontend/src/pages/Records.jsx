@@ -5,7 +5,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { getRecords, reset } from "../features/records/recordSlice";
 import { Record, columns } from "../components/recordsTable/Columns";
 import { DataTable } from "../components/recordsTable/DataTable";
-import { Flex, Box, useColorModeValue } from "@chakra-ui/react";
+import {
+    Flex,
+    Box,
+    Center,
+    useColorModeValue,
+    Heading,
+    VStack,
+} from "@chakra-ui/react";
+import Header from "../components/Header";
 
 function Records() {
     const navigate = useNavigate();
@@ -40,14 +48,22 @@ function Records() {
             bgGradient="linear(to-l, #FC5C7D, #6A82FB)"
         >
             <Box
-                h="80vh"
-                w="80vh"
-                rounded={"lg"}
+                h="calc(100vh - 60px)"
+                w="100%"
                 bg={useColorModeValue("white", "gray.700")}
                 boxShadow={"lg"}
                 p={4}
             >
-                <DataTable columns={columns} data={records} />
+                <VStack>
+                    <Heading
+                        fontSize={"3xl"}
+                        bgGradient="linear(to-l, #FF0080, #7928CA)"
+                        bgClip="text"
+                    >
+                        <Center>{user.name}'s Records</Center>
+                    </Heading>
+                    <DataTable columns={columns} data={records} />
+                </VStack>
             </Box>
         </Flex>
     );
