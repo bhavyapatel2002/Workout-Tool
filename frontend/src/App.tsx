@@ -8,22 +8,25 @@ import Register from './pages/Register'
 import Records from './pages/Records'
 import Navbar from './components/Navbar'
 import React from 'react'
+import LoginAlt from './pages/LoginAlt'
+import RegisterAlt from './pages/RegisterAlt'
+import { Flex } from '@chakra-ui/react'
+import Hero from './pages/Hero'
 
 function App() {
   return (
     <>
       <Router>
-      <Navbar />
-        <div className='container'>
-          
-          <Header />
-          <Routes>
-            <Route path='/' element={<Dashboard />}></Route>
-            <Route path='/login' element={<Login />}></Route>
-            <Route path='/register' element={<Register />}></Route>
-            <Route path='/records' element={<Records />}></Route>
-          </Routes>
-        </div>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Dashboard />}></Route>
+          <Route path='/alt' element={<Hero />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/loginalt' element={<LoginAlt />}></Route>
+          <Route path='/register' element={<Register />}></Route>
+          <Route path='/registeralt' element={<RegisterAlt />}></Route>
+          <Route path='/records' element={<Records />}></Route>
+        </Routes>
       </Router>
       <ToastContainer />
     </>
