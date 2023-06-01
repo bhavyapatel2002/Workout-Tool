@@ -1,31 +1,40 @@
 import * as React from "react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { Button, ChakraProvider } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
-import { DataTable } from "./DataTable";
+import DeleteRecordButton from "./DeleteRecordButton";
 
 export type Record = {
+    _id: string,
     exercise: string;
     weight: string;
     reps: number;
+    delete: typeof Button;
 };
 
 const columnHelper = createColumnHelper<Record>();
 
 export const columns = [
     columnHelper.accessor("exercise", {
-        cell: (info) => info.getValue(),
+        cell: props => props.getValue(),
         header: "Exercise",
     }),
     columnHelper.accessor("weight", {
-        cell: (info) => info.getValue(),
+        cell: props => <div style={{ textAlign: "center" }}>{props.getValue()}</div>,
         header: "Weight",
         meta: {
             isNumeric: true,
         },
     }),
     columnHelper.accessor("reps", {
-        cell: (info) => info.getValue(),
+        cell: props => <div style={{ textAlign: "center" }}>{props.getValue()}</div>,
         header: "Repetitions",
+        meta: {
+            isNumeric: true,
+        },
+    }),
+    columnHelper.accessor("_id", {
+        cell: props => <DeleteRecordButton id={props.getValue()} />,
+        header: () => <DeleteRecordButton id='a' />,
         meta: {
             isNumeric: true,
         },

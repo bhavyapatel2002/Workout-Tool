@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, chakra } from "@chakra-ui/react";
+import { Center, Table, Thead, Tbody, Tr, Th, Td, chakra } from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import {
     useReactTable,
@@ -10,15 +10,15 @@ import {
     getSortedRowModel,
 } from "@tanstack/react-table";
 
-export type DataTableProps<Data extends object> = {
-    data: Data[];
-    columns: ColumnDef<Data, any>[];
+export type DataTableProps<Record extends object> = {
+    data: Record[];
+    columns: ColumnDef<Record, any>[];
 };
 
-export function DataTable<Data extends object>({
+export function DataTable<Record extends object>({
     data,
     columns,
-}: DataTableProps<Data>) {
+}: DataTableProps<Record>) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const table = useReactTable({
         columns,
@@ -32,7 +32,7 @@ export function DataTable<Data extends object>({
     });
 
     return (
-        <Table>
+        <Table variant="striped">
             <Thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                     <Tr key={headerGroup.id}>
@@ -68,7 +68,7 @@ export function DataTable<Data extends object>({
             </Thead>
             <Tbody>
                 {table.getRowModel().rows.map((row) => (
-                    <Tr key={row.id}>
+                    <Tr key={row.id} >
                         {row.getVisibleCells().map((cell) => {
                             // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
                             const meta: any = cell.column.columnDef.meta;
@@ -79,7 +79,7 @@ export function DataTable<Data extends object>({
                                         cell.getContext()
                                     )}
                                 </Td>
-                            );
+                            )
                         })}
                     </Tr>
                 ))}
