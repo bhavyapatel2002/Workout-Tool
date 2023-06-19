@@ -7,6 +7,10 @@ const recordSchema = mongoose.Schema(
             required: true,
             ref: 'User'
         },
+        date: {
+            type: Date,
+            required: true
+        },
         exercise: {
             type: String,
             required: [true, 'Please add an exercise name']

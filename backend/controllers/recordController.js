@@ -24,6 +24,10 @@ const getRecords = asyncHandler(async (req, res) => {
 // @route   POST /api/records
 // @access  Private
 const addRecord = asyncHandler(async (req, res) => {
+    if(!req.body.date) {
+        res.status(400)
+        throw new Error('Please enter a valid date')
+    }
     if(!req.body.exercise) {
         res.status(400)
         throw new Error('Please enter an exercise')
@@ -46,6 +50,7 @@ const addRecord = asyncHandler(async (req, res) => {
     }
 
     const record = await Record.create({
+        date: req.body.date,
         exercise: req.body.exercise,
         weight: req.body.weight,
         reps: req.body.reps,

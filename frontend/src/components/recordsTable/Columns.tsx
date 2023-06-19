@@ -6,6 +6,7 @@ import AddRecordButton from "./AddRecordButton";
 
 export type Record = {
     _id: string,
+    date: Date,
     exercise: string;
     weight: string;
     reps: number;
@@ -15,23 +16,21 @@ export type Record = {
 const columnHelper = createColumnHelper<Record>();
 
 export const columns = [
+    columnHelper.accessor("date", {
+        cell: props => <>{new Date(props.getValue()).toLocaleDateString()}</>,
+        header: "Date",
+    }),
     columnHelper.accessor("exercise", {
         cell: props => props.getValue(),
         header: "Exercise",
     }),
     columnHelper.accessor("weight", {
-        cell: props => <div style={{ textAlign: "center" }}>{props.getValue()}</div>,
+        cell: props => <div>{props.getValue()}</div>,
         header: "Weight",
-        meta: {
-            isNumeric: true,
-        },
     }),
     columnHelper.accessor("reps", {
-        cell: props => <div style={{ textAlign: "center" }}>{props.getValue()}</div>,
+        cell: props => <div>{props.getValue()}</div>,
         header: "Repetitions",
-        meta: {
-            isNumeric: true,
-        },
     }),
     columnHelper.accessor("_id", {
         cell: props => <DeleteRecordButton id={props.getValue()} />,

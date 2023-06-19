@@ -12,6 +12,7 @@ import LoginAlt from './pages/LoginAlt'
 import RegisterAlt from './pages/RegisterAlt'
 import { Flex } from '@chakra-ui/react'
 import Hero from './pages/Hero'
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='/loginalt' element={<LoginAlt />}></Route>
           <Route path='/register' element={<Register />}></Route>
           <Route path='/registeralt' element={<RegisterAlt />}></Route>
+          <Route path='/home' element={<Home />}></Route>
           <Route path='/records' element={<Records />}></Route>
         </Routes>
       </Router>
