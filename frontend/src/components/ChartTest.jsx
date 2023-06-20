@@ -3,18 +3,33 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecords, reset } from "../features/records/recordSlice";
-import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
     LineElement,
     CategoryScale,
     LinearScale,
     PointElement,
+    Tooltip,
+    TimeScale
 } from "chart.js";
+import 'chartjs-adapter-date-fns';
+import { Line } from "react-chartjs-2";
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+ChartJS.register(LineElement, LinearScale, TimeScale, PointElement, Tooltip);
 
 function ChartTest() {
+    let dates = null
+    let values = null
+    
+    const extractMonths = (records) => {
+        let tempRecords = records   // use filter or something else here to only include options of whatever exercise the user selected
+        dates = tempRecords.map((record) => (record.date));
+        values = tempRecords.map((record) => (record.weight));  // over here I need to look at the weight and reps and map it into projected 1RM
+        // better approach to above idea might be to store the projected 1RM in the database at the time the record is created
+    }
+    // line chart is going to be messed up until its dates array is sorted in chronological order (and values as well)
+
+    
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -39,8 +54,13 @@ function ChartTest() {
         };
     }, [user, navigate, isError, message, dispatch]);
 
+    console.log(records)
+    extractMonths(records)
+    console.log(dates)
+    console.log(values)
+
     const data = {
-        labels: ["Mon", "Tue", "Wed"],
+        labels: dates,
         datasets: [
             {
                 label: 'My Balance',
@@ -60,7 +80,7 @@ function ChartTest() {
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: [500, 300, 400],
+                data: values,
             }
         ]
     };
@@ -71,6 +91,10 @@ function ChartTest() {
                 grid: {
                     display: false,
                 },
+                type: 'time',
+                time: {
+                    unit: 'day'
+                }
             },
             y: {
                 grid: {
