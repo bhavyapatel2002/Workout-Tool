@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler')
 const Record = require('../models/recordModel')
+const Exercise = require('../models/exerciseModel')
 const User = require('../models/userModel')
+const exerciseController = require('../controllers/exerciseController')
 
 // helper for validating input when creating records
 const isPositiveInteger = (value) => {
@@ -56,6 +58,20 @@ const addRecord = asyncHandler(async (req, res) => {
         reps: req.body.reps,
         user: req.user.id
     })
+
+    // check if exercise already exists for user
+    const exercise = await exerciseController.getExercise({ user: req.user.id, exercise: req.body.exercise })
+
+    // if it does, increase its count
+    if (exercise.length > 0) {
+        exerciseController.incrementExerciseCount({ user: req.user.id, exercise: req.body.exercise, prevCount: exercise[0].count })
+        console.log('incremented exercise count')
+    }
+    // else add it to user's library of exercises with count of 1
+    else {
+        exerciseController.createExercise({ user: req.user.id, exercise: req.body.exercise, count: 1 })
+        console.log('created new exercise')
+    }
 
     res.status(200).json(record)
 })
