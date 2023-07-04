@@ -127,6 +127,10 @@ const deleteRecord = asyncHandler(async (req, res) => {
         throw new Error('User not authorized to update record')
     }
 
+    // decrement count of exercise
+    await exerciseController.decrementExerciseCount({ user: req.user.id, exercise: record.exercise })
+
+    // delete record
     await record.deleteOne()
     
     res.status(200).json({ id: req.params.id })
