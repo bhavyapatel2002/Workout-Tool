@@ -17,7 +17,8 @@ const getExercise = asyncHandler(async (req, res) => {
 
 // get all exercises belonging to a particular user
 const getExercises = asyncHandler(async (req, res) => {
-    return Exercise.find({ user: req.user })
+    const exercises = await Exercise.find({ user: req.query.user })
+    res.status(200).json(exercises)
 })
 
 // increase count of exercise by 1

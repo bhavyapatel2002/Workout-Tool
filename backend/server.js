@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: false }))
 // use corresponding router files
 app.use('/api/records', require('./routes/recordRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/exercises', require('./routes/exerciseRoutes'))
 
 // override use of default error handler
 app.use(errorHandler)
